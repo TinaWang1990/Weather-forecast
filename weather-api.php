@@ -31,7 +31,7 @@
          </div>
          </div>
          <div class="col">
-         <div id='info' style="font-size: 20px"></div>
+         <div id='info' class='text-primary' style="font-size: 20px"></div>
          </div>
     </div>
     </div>
@@ -56,7 +56,7 @@
     			"http://api.openweathermap.org/data/2.5/weather?q="+search+"&appid="+apiKey,
     			function(data){
     				$('#info').html(
-                        '<p class="text-primary">Weather:'+data.weather.icon+'<br>Temperature:'+data.main.temp+'<br>Humidity:'+data.main.humidity+'</hp>');
+                        '<p >Weather:'+data.weather.icon+'<br>Temperature:'+data.main.temp+'<br>Humidity:'+data.main.humidity+'</p>');
     			}
     		);
     		
@@ -67,11 +67,10 @@
             $.get(
                 "http://api.openweathermap.org/data/2.5/forecast?q="+search+"&mode=json&appid="+apiKey,
                 function(data){
-                    $.each(data.list,function(){
-                         $('#info').html(
-                          this.main.temp
-                        );
-                       })
+                    var val=data.list;
+                    $('#info').html(
+                    '<p>Temperature in five days: <ul><li>'+val[0].main.temp+'</li><li>'+val[1].main.temp+'</li><li>'+val[2].main.temp+'</li><li>'+val[3].main.temp+'</li><li>'+val[4].main.temp+'</ul></p>'
+                    );
                    
                     
                 }
