@@ -11,16 +11,34 @@
     <title>Weather</title>
   </head>
   <body>
-    <h1>Weather Report!</h1>
+   
+   <img src="http://static.tumblr.com/pty6xao/bFVmysg5i/weatherreportlogo.png" style="width: 70vw; height: 20vh; margin-left:12vw; margin-bottom: 3rem">
 
-  <div class="form-group">
-    <label for="city">City</label>
-    <input type="text" class="form-control" id="city" aria-describedby="emailHelp" placeholder="Enter City"> 
-  </div>
+   <div class="container">
+    <div class="row">
+        <div class="col">
 
-	<button type="submit" class="btn btn-primary btn-block" onclick="searchWeather()">Submit</button>
+        <div class="card" style="width: 18rem; ">
+            <img class="card-img-top" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgHkQOdM8VS1CVryxxt_XN6VEI1G3kzDE8O-aTJx7n7FiC4kWOdQ" alt="Card image cap">
+        <div class="card-body">
+         <div class="form-group">
+       
+            <input type="text" class="form-control" id="city" aria-describedby="emailHelp" placeholder="Enter City"> 
+        </div>
+         <button type="submit" class="btn btn-primary " onclick="searchCurrentWeather()">Current Weather</button>
+         <button type="submit" class="btn btn-primary my-3" onclick="searchFutureWeather()">Future Weather</button>
+         </div>
+         </div>
+         </div>
+         <div class="col">
+         <div id='info' style="font-size: 20px"></div>
+         </div>
+    </div>
+    </div>
 
-	<div id='info'></div>
+  
+
+	
 
 
 
@@ -31,17 +49,36 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
     <script type="text/javascript">
-    	function searchWeather(){
+    	function searchCurrentWeather(){
     		var search=$('#city').val();
     		var apiKey="d4935a841eab12e1b107f033a386da66";
     		$.get(
     			"http://api.openweathermap.org/data/2.5/weather?q="+search+"&appid="+apiKey,
     			function(data){
-    				$('#info').html('<h3 class="text-primary">'+data.main.temp+'</h3>');
+    				$('#info').html(
+                        '<p class="text-primary">Weather:'+data.weather.icon+'<br>Temperature:'+data.main.temp+'<br>Humidity:'+data.main.humidity+'</hp>');
     			}
     		);
     		
     	}
+        function searchFutureWeather(){
+            var search=$('#city').val();
+            var apiKey="d4935a841eab12e1b107f033a386da66";
+            $.get(
+                "http://api.openweathermap.org/data/2.5/forecast?q="+search+"&mode=json&appid="+apiKey,
+                function(data){
+                    $.each(data.list,function(){
+                         $('#info').html(
+                          this.main.temp
+                        );
+                       })
+                   
+                    
+                }
+            );
+            
+        }
     </script>
   </body>
 </html>
+
